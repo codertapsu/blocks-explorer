@@ -1,9 +1,6 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  extends: [
-    'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended',
-  ],
+  extends: ['plugin:react/recommended', 'plugin:@typescript-eslint/recommended'],
   settings: {
     react: {
       version: 'detect',
@@ -16,11 +13,12 @@ module.exports = {
         allowTypedFunctionExpressions: true,
         allowExpressions: true,
         allowHigherOrderFunctions: true,
-        allowConciseArrowFunctionExpressionsStartingWithVoid: true
+        allowConciseArrowFunctionExpressionsStartingWithVoid: true,
       },
     ],
     '@typescript-eslint/indent': ['error', 2],
     'react/prop-types': 'off',
+    'react/display-name': ['off', { ignoreTranspilerName: true }],
   },
   overrides: [
     {

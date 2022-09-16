@@ -1,10 +1,23 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+
+const tsConfigFile = path.join(__dirname, '../tsconfig.json');
 
 const config = {
   entry: path.join(__dirname, '../src/index'),
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
+    plugins: [
+      new TsconfigPathsPlugin({
+        configFile: tsConfigFile,
+      }),
+    ],
+    fallback: {
+      // stream: require.resolve('stream-browserify'),
+      buffer: require.resolve('buffer/'),
+    },
   },
   module: {
     rules: [
@@ -52,6 +65,11 @@ const config = {
         removeComments: true,
         collapseWhitespace: true,
       },
+    }),
+    // Work around for Buffer is undefined:
+    // https://viglucci.io/how-to-polyfill-buffer-with-webpack-5
+    new webpack.ProvidePlugin({
+      Buffer: ['buffer', 'Buffer'],
     }),
   ],
 };
